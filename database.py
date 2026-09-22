@@ -1,7 +1,6 @@
 import sqlite3
 
 connection = sqlite3.connect("detections.db")
-
 cursor = connection.cursor()
 
 # Detection history
@@ -14,7 +13,7 @@ CREATE TABLE IF NOT EXISTS detections (
 )
 """)
 
-# Important events
+# CCTV events
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,6 +21,17 @@ CREATE TABLE IF NOT EXISTS events (
     object_name TEXT,
     confidence REAL,
     event_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+""")
+
+# Person tracking sessions
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS person_sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    track_id INTEGER,
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    end_time TIMESTAMP,
+    duration_seconds REAL
 )
 """)
 

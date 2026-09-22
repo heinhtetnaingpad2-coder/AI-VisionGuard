@@ -1,34 +1,43 @@
-```html
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-    <title>AI VisionGuard</title>
+    <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI VisionGuard</title>
 
     <style>
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0b1120;
-            color: #f8fafc;
+            font-family:
+                Inter,
+                Arial,
+                sans-serif;
+
+            background: #0b0f14;
+            color: #e8edf3;
+            min-height: 100vh;
         }
 
-        /* =====================================
+        /* ==================================================
            HEADER
-        ===================================== */
+        ================================================== */
 
         header {
-            background: #111827;
-            border-bottom: 1px solid #273244;
+            background: #111720;
+            border-bottom: 1px solid #202a35;
             padding: 20px 30px;
 
             display: flex;
@@ -41,108 +50,58 @@
         }
 
         .brand h1 {
-            margin: 0;
             font-size: 24px;
+            font-weight: 700;
         }
 
         .brand p {
-            margin: 5px 0 0;
-            color: #94a3b8;
+            color: #8d9aaa;
             font-size: 13px;
+            margin-top: 5px;
         }
 
-        .status {
+        .system-status {
             display: flex;
             align-items: center;
-            gap: 8px;
-
-            padding: 8px 14px;
-
-            background: #10251b;
-            border: 1px solid #1f5135;
-
-            border-radius: 20px;
+            gap: 9px;
 
             font-size: 13px;
-            color: #86efac;
+            font-weight: 600;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-
-            background: #22c55e;
-
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
+            background: #31d158;
+            box-shadow: 0 0 10px #31d158;
         }
 
-        /* =====================================
+        .status-dot.offline {
+            background: #ff453a;
+            box-shadow: 0 0 10px #ff453a;
+        }
+
+        /* ==================================================
            MAIN
-        ===================================== */
+        ================================================== */
 
         main {
             max-width: 1500px;
             margin: auto;
-            padding: 30px;
-        }
-
-        .section {
-            background: #111827;
-
-            border: 1px solid #273244;
-
-            border-radius: 14px;
-
-            padding: 22px;
-
-            margin-bottom: 22px;
+            padding: 25px 30px 50px;
         }
 
         .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 18px;
-        }
-
-        .section-title h2 {
-            margin: 0;
             font-size: 18px;
+            margin-bottom: 15px;
         }
 
-        .section-title span {
-            color: #64748b;
-            font-size: 12px;
-        }
+        /* ==================================================
+           STAT CARDS
+        ================================================== */
 
-        /* =====================================
-           CAMERA
-        ===================================== */
-
-        .camera-wrapper {
-            background: #020617;
-
-            border-radius: 10px;
-
-            padding: 8px;
-
-            border: 1px solid #273244;
-        }
-
-        .camera {
-            width: 100%;
-
-            display: block;
-
-            border-radius: 7px;
-        }
-
-        /* =====================================
-           LIVE CARDS
-        ===================================== */
-
-        .cards {
+        .stats-grid {
             display: grid;
 
             grid-template-columns:
@@ -152,125 +111,304 @@
                 );
 
             gap: 15px;
+            margin-bottom: 25px;
         }
 
-        .card {
-            background: #172033;
+        .stat-card {
+            background: #111720;
+            border: 1px solid #202a35;
+            border-radius: 12px;
 
-            border: 1px solid #29364a;
+            padding: 20px;
 
+            min-height: 115px;
+        }
+
+        .stat-label {
+            color: #8d9aaa;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .stat-sub {
+            color: #718093;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        /* ==================================================
+           CCTV
+        ================================================== */
+
+        .cctv-section {
+            background: #111720;
+            border: 1px solid #202a35;
+            border-radius: 12px;
+
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .cctv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+        .cctv-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .cctv-info {
+            color: #8d9aaa;
+            font-size: 13px;
+        }
+
+        .video-wrapper {
+            background: #050709;
+            border-radius: 10px;
+            overflow: hidden;
+
+            width: 100%;
+            aspect-ratio: 16 / 9;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* ==================================================
+           TWO COLUMN LAYOUT
+        ================================================== */
+
+        .two-column {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: #111720;
+            border: 1px solid #202a35;
             border-radius: 12px;
 
             padding: 20px;
         }
 
-        .card-label {
-            color: #94a3b8;
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-            font-size: 13px;
-        }
-
-        .card-number {
-            font-size: 34px;
-
-            font-weight: bold;
-
-            margin-top: 8px;
-        }
-
-        .card-description {
-            color: #64748b;
-
-            font-size: 11px;
-
-            margin-top: 5px;
-        }
-
-        /* =====================================
-           ANALYTICS
-        ===================================== */
-
-        .analytics-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(180px, 1fr)
-                );
-
-            gap: 15px;
-        }
-
-        .analytics-card {
-            background: #172033;
-
-            border-radius: 12px;
-
-            padding: 18px;
-
-            border: 1px solid #29364a;
-        }
-
-        .analytics-value {
-            font-size: 28px;
-
-            font-weight: bold;
-
-            margin-top: 7px;
-        }
-
-        /* =====================================
-           BREAKDOWN
-        ===================================== */
-
-        .breakdown-item {
             margin-bottom: 18px;
         }
 
-        .breakdown-header {
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        /* ==================================================
+           ALERTS
+        ================================================== */
+
+        .alert-list {
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-            justify-content: space-between;
+        .alert {
+            padding: 12px 14px;
 
-            margin-bottom: 7px;
+            background: #171e27;
+            border: 1px solid #26313d;
+
+            border-radius: 8px;
 
             font-size: 13px;
         }
 
-        .breakdown-name {
-            color: #cbd5e1;
+        .alert strong {
+            display: block;
+            margin-bottom: 4px;
         }
 
-        .breakdown-count {
-            color: #94a3b8;
+        .alert-time {
+            color: #7d8a99;
+            font-size: 11px;
         }
 
-        .bar-background {
+        /* ==================================================
+           ANALYTICS
+        ================================================== */
+
+        .analytics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .analytics-row {
+            display: flex;
+            justify-content: space-between;
+
+            padding: 11px 13px;
+
+            background: #171e27;
+            border-radius: 8px;
+        }
+
+        .analytics-name {
+            color: #aab5c2;
+            font-size: 13px;
+        }
+
+        .analytics-number {
+            font-weight: 700;
+        }
+
+        /* ==================================================
+           TABLES
+        ================================================== */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
             width: 100%;
-
-            height: 8px;
-
-            background: #1e293b;
-
-            border-radius: 10px;
-
-            overflow: hidden;
+            border-collapse: collapse;
         }
 
-        .bar {
-            height: 100%;
+        th,
+        td {
+            padding: 12px 10px;
 
-            background: #3b82f6;
+            border-bottom:
+                1px solid #202a35;
 
-            border-radius: 10px;
+            text-align: left;
 
-            transition: width 0.3s;
+            font-size: 12px;
+
+            white-space: nowrap;
         }
 
-        /* =====================================
+        th {
+            color: #8d9aaa;
+            font-weight: 600;
+        }
+
+        td {
+            color: #dce2e8;
+        }
+
+        .active-badge {
+            display: inline-block;
+
+            padding: 4px 8px;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .active {
+            background: #16351f;
+            color: #55d477;
+        }
+
+        .completed {
+            background: #202832;
+            color: #9ba8b7;
+        }
+
+        /* ==================================================
+           FILTERS
+        ================================================== */
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            margin-bottom: 15px;
+        }
+
+        input,
+        select {
+            background: #0b0f14;
+            color: #e8edf3;
+
+            border:
+                1px solid #2a3541;
+
+            border-radius: 7px;
+
+            padding: 9px 11px;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #66778a;
+        }
+
+        button {
+            background: #e8edf3;
+            color: #0b0f14;
+
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 9px 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        button.secondary {
+            background: #202a35;
+            color: #dce2e8;
+        }
+
+        button.danger {
+            background: #4a1e1d;
+            color: #ffb4ae;
+        }
+
+        /* ==================================================
            SETTINGS
-        ===================================== */
+        ================================================== */
 
         .settings-grid {
             display: grid;
@@ -281,269 +419,100 @@
                     minmax(220px, 1fr)
                 );
 
-            gap: 12px;
+            gap: 15px;
         }
 
-        .setting-box {
-            background: #172033;
+        .setting {
+            background: #171e27;
 
-            border: 1px solid #29364a;
+            border:
+                1px solid #26313d;
 
-            border-radius: 10px;
+            border-radius: 8px;
 
             padding: 15px;
         }
 
-        .setting-box label {
-            display: flex;
+        .setting label {
+            display: block;
 
-            align-items: center;
+            font-size: 13px;
 
-            gap: 10px;
+            margin-bottom: 9px;
 
-            cursor: pointer;
-
-            font-size: 14px;
+            color: #aab5c2;
         }
 
-        input[type="checkbox"] {
-            width: 17px;
-            height: 17px;
-        }
-
-        .confidence-section {
-            margin-top: 20px;
-
-            padding: 18px;
-
-            background: #172033;
-
-            border-radius: 10px;
-
-            border: 1px solid #29364a;
-        }
-
-        .confidence-top {
-            display: flex;
-
-            justify-content: space-between;
-
-            margin-bottom: 10px;
-        }
-
-        input[type="range"] {
+        .setting input[type="number"] {
             width: 100%;
         }
 
-        /* =====================================
-           BUTTONS
-        ===================================== */
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
 
-        button {
-            border: none;
+        .checkbox-row input {
+            width: auto;
+        }
 
-            border-radius: 7px;
-
-            padding: 10px 15px;
-
-            cursor: pointer;
-
-            font-weight: bold;
-
+        .save-settings {
             margin-top: 15px;
         }
 
-        .primary {
-            background: #2563eb;
-
-            color: white;
-        }
-
-        .primary:hover {
-            background: #1d4ed8;
-        }
-
-        .secondary {
-            background: #334155;
-
-            color: white;
-        }
-
-        .secondary:hover {
-            background: #475569;
-        }
-
-        .danger {
-            background: #991b1b;
-
-            color: white;
-        }
-
-        .danger:hover {
-            background: #b91c1c;
-        }
-
-        .success-message {
-            color: #4ade80;
-
-            margin-left: 10px;
-
-            font-size: 13px;
-        }
-
-        /* =====================================
-           FILTERS
-        ===================================== */
-
-        .filters {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(180px, 1fr)
-                );
-
-            gap: 10px;
-
-            margin-bottom: 15px;
-        }
-
-        select,
-        input[type="text"] {
-
-            width: 100%;
-
-            padding: 11px;
-
-            background: #172033;
-
-            color: white;
-
-            border: 1px solid #334155;
-
-            border-radius: 7px;
-
-            outline: none;
-        }
-
-        select:focus,
-        input[type="text"]:focus {
-            border-color: #3b82f6;
-        }
-
-        /* =====================================
-           EVENT COUNT
-        ===================================== */
-
-        .event-info {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 10px;
-
-            color: #94a3b8;
-
-            font-size: 13px;
-        }
-
-        /* =====================================
-           TABLE
-        ===================================== */
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-
-            border-collapse: collapse;
-
-            min-width: 700px;
-        }
-
-        th {
-            text-align: left;
-
-            padding: 12px;
-
-            color: #64748b;
-
-            font-size: 12px;
-
-            border-bottom:
-                1px solid #273244;
-        }
-
-        td {
-            padding: 13px 12px;
-
-            border-bottom:
-                1px solid #1e293b;
-
-            font-size: 13px;
-        }
-
-        tr:hover {
-            background: #172033;
-        }
-
-        .event-badge {
-            display: inline-block;
-
-            padding: 5px 8px;
-
-            border-radius: 5px;
-
-            background: #1e3a8a;
-
-            color: #bfdbfe;
-
-            font-size: 11px;
-
-            font-weight: bold;
-        }
-
-        /* =====================================
+        /* ==================================================
            FOOTER
-        ===================================== */
+        ================================================== */
 
         footer {
             text-align: center;
 
-            color: #475569;
+            color: #596675;
 
             font-size: 12px;
 
             padding: 20px;
         }
 
-        /* =====================================
-           MOBILE
-        ===================================== */
+        /* ==================================================
+           EMPTY STATE
+        ================================================== */
 
-        @media (max-width: 700px) {
+        .empty {
+            text-align: center;
+
+            color: #647180;
+
+            padding: 25px;
+
+            font-size: 13px;
+        }
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 850px) {
 
             header {
-                padding: 15px;
-
-                flex-direction: column;
-
-                align-items: flex-start;
-
-                gap: 12px;
+                padding: 16px 18px;
             }
 
             main {
-                padding: 15px;
+                padding: 18px;
             }
 
-            .section {
-                padding: 15px;
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .brand h1 {
+                font-size: 20px;
+            }
+
+            .system-status {
+                font-size: 11px;
             }
 
         }
@@ -555,10 +524,9 @@
 
 <body>
 
-
-<!-- =========================================
+<!-- ======================================================
      HEADER
-========================================= -->
+====================================================== -->
 
 <header>
 
@@ -569,980 +537,1233 @@
         </h1>
 
         <p>
-            Intelligent Computer Vision Monitoring System
+            Intelligent AI CCTV Monitoring System
         </p>
 
     </div>
 
 
-    <div class="status">
+    <div class="system-status">
 
-        <div class="status-dot"></div>
+        <div
+            id="statusDot"
+            class="status-dot"
+        ></div>
 
-        AI SYSTEM ONLINE
+        <span id="systemStatus">
+            CAMERA ONLINE
+        </span>
 
     </div>
 
 </header>
 
 
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
 <main>
 
 
-<!-- =========================================
-     CAMERA
-========================================= -->
+    <!-- ==================================================
+         STATISTICS
+    ================================================== -->
 
-<div class="section">
+    <div class="stats-grid">
 
-    <div class="section-title">
+        <div class="stat-card">
 
-        <h2>
-            Live AI Camera
-        </h2>
-
-        <span>
-            YOLO Object Detection
-        </span>
-
-    </div>
-
-
-    <div class="camera-wrapper">
-
-        <img
-            class="camera"
-            src="/video_feed"
-        >
-
-    </div>
-
-</div>
-
-
-<!-- =========================================
-     LIVE DETECTION
-========================================= -->
-
-<div class="section">
-
-    <div class="section-title">
-
-        <h2>
-            Live Detection
-        </h2>
-
-        <span>
-            Real-time
-        </span>
-
-    </div>
-
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <div class="card-label">
-                PEOPLE
+            <div class="stat-label">
+                PEOPLE NOW
             </div>
 
             <div
-                class="card-number"
+                class="stat-value"
                 id="peopleCount"
             >
                 0
             </div>
 
-            <div class="card-description">
-                Currently detected
+            <div class="stat-sub">
+                Currently visible
             </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="stat-card">
 
-            <div class="card-label">
-                LAPTOPS
+            <div class="stat-label">
+                TRACKED IDS
             </div>
 
             <div
-                class="card-number"
-                id="laptopCount"
+                class="stat-value"
+                id="trackedIds"
             >
                 0
             </div>
 
-            <div class="card-description">
-                Currently detected
+            <div class="stat-sub">
+                Active tracking IDs
             </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="stat-card">
 
-            <div class="card-label">
-                PHONES
-            </div>
-
-            <div
-                class="card-number"
-                id="phoneCount"
-            >
-                0
-            </div>
-
-            <div class="card-description">
-                Currently detected
-            </div>
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-<!-- =========================================
-     ANALYTICS
-========================================= -->
-
-<div class="section">
-
-    <div class="section-title">
-
-        <h2>
-            Event Analytics
-        </h2>
-
-        <span>
-            Recorded events
-        </span>
-
-    </div>
-
-
-    <div class="analytics-grid">
-
-
-        <div class="analytics-card">
-
-            <div class="card-label">
+            <div class="stat-label">
                 TOTAL EVENTS
             </div>
 
             <div
-                class="analytics-value"
+                class="stat-value"
                 id="totalEvents"
             >
                 0
             </div>
 
+            <div class="stat-sub">
+                Recorded CCTV events
+            </div>
+
         </div>
 
 
-        <div class="analytics-card">
+        <div class="stat-card">
 
-            <div class="card-label">
-                PEOPLE
+            <div class="stat-label">
+                SESSIONS
             </div>
 
             <div
-                class="analytics-value"
-                id="peopleEvents"
+                class="stat-value"
+                id="totalSessions"
             >
                 0
             </div>
 
+            <div class="stat-sub">
+                Person sessions
+            </div>
+
         </div>
 
 
-        <div class="analytics-card">
+        <div class="stat-card">
 
-            <div class="card-label">
-                PHONES
+            <div class="stat-label">
+                AVG PRESENCE
             </div>
 
             <div
-                class="analytics-value"
-                id="phoneEvents"
+                class="stat-value"
+                id="averagePresence"
             >
-                0
+                0s
+            </div>
+
+            <div class="stat-sub">
+                Average session duration
             </div>
 
         </div>
 
+    </div>
 
-        <div class="analytics-card">
 
-            <div class="card-label">
-                LAPTOPS
+    <!-- ==================================================
+         CCTV
+    ================================================== -->
+
+    <section class="cctv-section">
+
+        <div class="cctv-header">
+
+            <div>
+
+                <div class="cctv-title">
+                    Live CCTV
+                </div>
+
+                <div class="cctv-info">
+                    YOLO Person Detection + ByteTrack
+                </div>
+
             </div>
+
 
             <div
-                class="analytics-value"
-                id="laptopEvents"
+                class="cctv-info"
+                id="trackedIdText"
             >
-                0
+                Tracking IDs: None
             </div>
 
         </div>
 
 
-        <div class="analytics-card">
+        <div class="video-wrapper">
 
-            <div class="card-label">
-                MULTIPLE PEOPLE
+            <img
+                src="/video_feed"
+                alt="AI CCTV live feed"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         ALERTS + ANALYTICS
+    ================================================== -->
+
+    <div class="two-column">
+
+
+        <!-- ALERTS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+                    Security Alerts
+                </div>
+
             </div>
+
 
             <div
-                class="analytics-value"
-                id="multiplePeopleEvents"
+                class="alert-list"
+                id="alertList"
             >
-                0
+
+                <div class="empty">
+                    No alerts yet.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+                    Event Analytics
+                </div>
+
+            </div>
+
+
+            <div class="analytics-list">
+
+                <div class="analytics-row">
+
+                    <span class="analytics-name">
+                        Person Detected
+                    </span>
+
+                    <span
+                        class="analytics-number"
+                        id="personEvents"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="analytics-row">
+
+                    <span class="analytics-name">
+                        Multiple People
+                    </span>
+
+                    <span
+                        class="analytics-number"
+                        id="multipleEvents"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="analytics-row">
+
+                    <span class="analytics-name">
+                        Person Left
+                    </span>
+
+                    <span
+                        class="analytics-number"
+                        id="leftEvents"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="analytics-row">
+
+                    <span class="analytics-name">
+                        Active Sessions
+                    </span>
+
+                    <span
+                        class="analytics-number"
+                        id="activeSessions"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ==================================================
+         PERSON SESSIONS
+    ================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div class="panel-title">
+                Person Sessions
+            </div>
+
+            <button
+                class="danger"
+                onclick="clearSessions()"
+            >
+                Clear Sessions
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            TRACK ID
+                        </th>
+
+                        <th>
+                            START
+                        </th>
+
+                        <th>
+                            END
+                        </th>
+
+                        <th>
+                            DURATION
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="sessionsTable">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty"
+                        >
+                            No sessions recorded.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <br>
+
+
+    <!-- ==================================================
+         EVENT HISTORY
+    ================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div class="panel-title">
+                Event History
+            </div>
+
+            <button
+                class="danger"
+                onclick="clearEvents()"
+            >
+                Clear History
+            </button>
+
+        </div>
+
+
+        <div class="filters">
+
+            <select
+                id="eventFilter"
+                onchange="loadEvents()"
+            >
+
+                <option value="">
+                    All Events
+                </option>
+
+                <option value="PERSON_DETECTED">
+                    Person Detected
+                </option>
+
+                <option value="MULTIPLE_PEOPLE">
+                    Multiple People
+                </option>
+
+                <option value="PERSON_LEFT">
+                    Person Left
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="eventSearch"
+                placeholder="Search events..."
+                oninput="loadEvents()"
+            >
+
+
+            <button
+                class="secondary"
+                onclick="resetFilters()"
+            >
+                Clear Filters
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            EVENT
+                        </th>
+
+                        <th>
+                            OBJECT
+                        </th>
+
+                        <th>
+                            CONFIDENCE
+                        </th>
+
+                        <th>
+                            TIME
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="eventsTable">
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty"
+                        >
+                            No events recorded.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <br>
+
+
+    <!-- ==================================================
+         SETTINGS
+    ================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div class="panel-title">
+                CCTV Settings
             </div>
 
         </div>
 
 
-    </div>
-
-</div>
+        <div class="settings-grid">
 
 
-<!-- =========================================
-     EVENT BREAKDOWN
-========================================= -->
+            <div class="setting">
 
-<div class="section">
+                <label>
+                    Person Detection
+                </label>
 
-    <div class="section-title">
+                <div class="checkbox-row">
 
-        <h2>
-            Event Breakdown
-        </h2>
+                    <input
+                        type="checkbox"
+                        id="personDetection"
+                    >
 
-        <span>
-            Activity distribution
-        </span>
+                    <span>
+                        Enable person detection alerts
+                    </span>
 
-    </div>
+                </div>
 
-
-    <div id="breakdown">
-
-        Loading...
-
-    </div>
-
-</div>
+            </div>
 
 
-<!-- =========================================
-     SETTINGS
-========================================= -->
+            <div class="setting">
 
-<div class="section">
+                <label>
+                    Multiple People Detection
+                </label>
 
-    <div class="section-title">
+                <div class="checkbox-row">
 
-        <h2>
-            Detection Settings
-        </h2>
+                    <input
+                        type="checkbox"
+                        id="multiplePeopleDetection"
+                    >
 
-        <span>
-            Configure AI rules
-        </span>
+                    <span>
+                        Detect multiple people
+                    </span>
 
-    </div>
+                </div>
+
+            </div>
 
 
-    <div class="settings-grid">
+            <div class="setting">
 
-
-        <div class="setting-box">
-
-            <label>
+                <label>
+                    Confidence Threshold
+                </label>
 
                 <input
-                    type="checkbox"
-                    id="personDetection"
+                    type="number"
+                    id="confidenceThreshold"
+                    min="0.05"
+                    max="0.95"
+                    step="0.05"
                 >
 
-                Person Detection
-
-            </label>
+            </div>
 
         </div>
 
 
-        <div class="setting-box">
+        <div class="save-settings">
 
-            <label>
+            <button
+                onclick="saveSettings()"
+            >
+                Save Settings
+            </button>
 
-                <input
-                    type="checkbox"
-                    id="phoneDetection"
-                >
-
-                Phone Detection
-
-            </label>
-
-        </div>
-
-
-        <div class="setting-box">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="laptopDetection"
-                >
-
-                Laptop Detection
-
-            </label>
+            <span
+                id="settingsMessage"
+                style="
+                    margin-left: 10px;
+                    color: #718093;
+                    font-size: 12px;
+                "
+            ></span>
 
         </div>
 
-
-        <div class="setting-box">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="multiplePeopleDetection"
-                >
-
-                Multiple People Detection
-
-            </label>
-
-        </div>
+    </section>
 
 
-    </div>
+    <!-- ==================================================
+         CLOCK
+    ================================================== -->
 
-
-    <div class="confidence-section">
-
-        <div class="confidence-top">
-
-            <strong>
-                AI Confidence Threshold
-            </strong>
-
-            <span id="confidenceValue">
-                0.50
-            </span>
-
-        </div>
-
-
-        <input
-            type="range"
-            id="confidenceThreshold"
-            min="0.10"
-            max="0.95"
-            step="0.05"
-            value="0.50"
-        >
-
-
-        <br>
-
-
-        <button
-            class="primary"
-            onclick="saveSettings()"
-        >
-            Save Settings
-        </button>
-
-
-        <span
-            id="settingsStatus"
-            class="success-message"
-        ></span>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================
-     EVENT HISTORY
-========================================= -->
-
-<div class="section">
-
-    <div class="section-title">
-
-        <h2>
-            Event History
-        </h2>
-
-        <span>
-            Latest 50 events
-        </span>
-
-    </div>
-
-
-    <div class="filters">
-
-
-        <select id="eventType">
-
-            <option value="">
-                All Event Types
-            </option>
-
-            <option value="PERSON_ENTERED">
-                PERSON_ENTERED
-            </option>
-
-            <option value="PHONE_DETECTED">
-                PHONE_DETECTED
-            </option>
-
-            <option value="LAPTOP_DETECTED">
-                LAPTOP_DETECTED
-            </option>
-
-            <option value="MULTIPLE_PEOPLE">
-                MULTIPLE_PEOPLE
-            </option>
-
-        </select>
-
-
-        <select id="objectName">
-
-            <option value="">
-                All Objects
-            </option>
-
-            <option value="person">
-                person
-            </option>
-
-            <option value="cell phone">
-                cell phone
-            </option>
-
-            <option value="laptop">
-                laptop
-            </option>
-
-        </select>
-
-
-        <input
-            type="text"
-            id="search"
-            placeholder="Search events..."
-        >
-
-
-    </div>
-
-
-    <button
-        class="primary"
-        onclick="loadEvents()"
+    <div
+        style="
+            text-align: right;
+            color: #596675;
+            font-size: 12px;
+            margin-top: 20px;
+        "
+        id="clock"
     >
-        Search
-    </button>
-
-
-    <button
-        class="secondary"
-        onclick="clearFilters()"
-    >
-        Clear Filters
-    </button>
-
-
-    <div class="event-info">
-
-        <span>
-
-            Showing
-            <strong id="eventCount">
-                0
-            </strong>
-            events
-
-        </span>
-
     </div>
-
-
-    <button
-        class="danger"
-        onclick="clearEventHistory()"
-    >
-        Clear Event History
-    </button>
-
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        ID
-                    </th>
-
-                    <th>
-                        Object
-                    </th>
-
-                    <th>
-                        Event
-                    </th>
-
-                    <th>
-                        Confidence
-                    </th>
-
-                    <th>
-                        Time
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="eventTable">
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
 
 
 </main>
 
 
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
 <footer>
 
-    AI VisionGuard
-    ·
-    Computer Vision Monitoring Prototype
+    AI VisionGuard · Local AI CCTV Prototype
 
 </footer>
 
 
 <script>
 
+/* ========================================================
+   FORMAT DURATION
+======================================================== */
 
-// =========================================
-// LIVE COUNTS
-// =========================================
+function formatDuration(seconds) {
+
+    if (
+        seconds === null ||
+        seconds === undefined
+    ) {
+        return "-";
+    }
+
+    seconds = Math.max(
+        0,
+        Number(seconds)
+    );
+
+    if (seconds < 60) {
+
+        return (
+            Math.round(seconds)
+            + "s"
+        );
+
+    }
+
+    const minutes = Math.floor(
+        seconds / 60
+    );
+
+    const remainingSeconds =
+        Math.round(
+            seconds % 60
+        );
+
+    if (minutes < 60) {
+
+        return (
+            minutes
+            + "m "
+            + remainingSeconds
+            + "s"
+        );
+
+    }
+
+    const hours = Math.floor(
+        minutes / 60
+    );
+
+    const remainingMinutes =
+        minutes % 60;
+
+    return (
+        hours
+        + "h "
+        + remainingMinutes
+        + "m"
+    );
+}
+
+
+/* ========================================================
+   LOAD LIVE CCTV DATA
+======================================================== */
 
 async function loadCounts() {
 
-    const response =
-        await fetch("/api/counts");
+    try {
 
-    const data =
-        await response.json();
+        const response =
+            await fetch(
+                "/api/counts"
+            );
 
-
-    document.getElementById(
-        "peopleCount"
-    ).textContent =
-        data.person;
+        const data =
+            await response.json();
 
 
-    document.getElementById(
-        "laptopCount"
-    ).textContent =
-        data.laptop;
+        document.getElementById(
+            "peopleCount"
+        ).textContent =
+            data.people ?? 0;
 
 
-    document.getElementById(
-        "phoneCount"
-    ).textContent =
-        data["cell phone"];
+        document.getElementById(
+            "trackedIds"
+        ).textContent =
+            data.tracked_ids
+                ? data.tracked_ids.length
+                : 0;
+
+
+        const ids =
+            data.tracked_ids || [];
+
+
+        document.getElementById(
+            "trackedIdText"
+        ).textContent =
+            ids.length
+                ? "Tracking IDs: "
+                    + ids.join(", ")
+                : "Tracking IDs: None";
+
+
+        const status =
+            data.status || "OFFLINE";
+
+
+        document.getElementById(
+            "systemStatus"
+        ).textContent =
+            status === "ONLINE"
+                ? "CAMERA ONLINE"
+                : "CAMERA OFFLINE";
+
+
+        const dot =
+            document.getElementById(
+                "statusDot"
+            );
+
+
+        if (status === "ONLINE") {
+
+            dot.classList.remove(
+                "offline"
+            );
+
+        } else {
+
+            dot.classList.add(
+                "offline"
+            );
+
+        }
+
+    } catch (error) {
+
+        document.getElementById(
+            "systemStatus"
+        ).textContent =
+            "CAMERA OFFLINE";
+
+        document.getElementById(
+            "statusDot"
+        ).classList.add(
+            "offline"
+        );
+
+    }
 
 }
 
 
-// =========================================
-// ANALYTICS
-// =========================================
+/* ========================================================
+   LOAD ANALYTICS
+======================================================== */
 
 async function loadAnalytics() {
 
-    const response =
-        await fetch("/api/analytics");
+    try {
 
-    const data =
-        await response.json();
+        const response =
+            await fetch(
+                "/api/analytics"
+            );
 
-
-    document.getElementById(
-        "totalEvents"
-    ).textContent =
-        data.total_events;
+        const data =
+            await response.json();
 
 
-    document.getElementById(
-        "peopleEvents"
-    ).textContent =
-        data.people_events;
-
-
-    document.getElementById(
-        "phoneEvents"
-    ).textContent =
-        data.phone_events;
-
-
-    document.getElementById(
-        "laptopEvents"
-    ).textContent =
-        data.laptop_events;
-
-
-    document.getElementById(
-        "multiplePeopleEvents"
-    ).textContent =
-        data.multiple_people_events;
-
-
-    const breakdown =
         document.getElementById(
-            "breakdown"
+            "totalEvents"
+        ).textContent =
+            data.total_events ?? 0;
+
+
+        document.getElementById(
+            "totalSessions"
+        ).textContent =
+            data.total_sessions ?? 0;
+
+
+        document.getElementById(
+            "averagePresence"
+        ).textContent =
+            formatDuration(
+                data.average_duration
+            );
+
+
+        document.getElementById(
+            "personEvents"
+        ).textContent =
+            data.person_events ?? 0;
+
+
+        document.getElementById(
+            "multipleEvents"
+        ).textContent =
+            data.multiple_people_events ?? 0;
+
+
+        document.getElementById(
+            "leftEvents"
+        ).textContent =
+            data.person_left_events ?? 0;
+
+
+        document.getElementById(
+            "activeSessions"
+        ).textContent =
+            data.active_sessions ?? 0;
+
+    } catch (error) {
+
+        console.error(
+            "Analytics error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   LOAD EVENTS
+======================================================== */
+
+async function loadEvents() {
+
+    try {
+
+        const eventType =
+            document.getElementById(
+                "eventFilter"
+            ).value;
+
+
+        const search =
+            document.getElementById(
+                "eventSearch"
+            ).value;
+
+
+        const params =
+            new URLSearchParams();
+
+
+        if (eventType) {
+
+            params.append(
+                "event_type",
+                eventType
+            );
+
+        }
+
+
+        if (search) {
+
+            params.append(
+                "search",
+                search
+            );
+
+        }
+
+
+        const response =
+            await fetch(
+                "/api/events?"
+                + params.toString()
+            );
+
+
+        const events =
+            await response.json();
+
+
+        const table =
+            document.getElementById(
+                "eventsTable"
+            );
+
+
+        if (!events.length) {
+
+            table.innerHTML = `
+                <tr>
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+                        No events found.
+                    </td>
+                </tr>
+            `;
+
+            updateAlerts([]);
+
+            return;
+
+        }
+
+
+        table.innerHTML =
+            events.map(
+                event => `
+
+                <tr>
+
+                    <td>
+                        ${event.id}
+                    </td>
+
+                    <td>
+                        ${event.event_type}
+                    </td>
+
+                    <td>
+                        ${event.object_name}
+                    </td>
+
+                    <td>
+                        ${
+                            event.confidence
+                                ? (
+                                    Number(
+                                        event.confidence
+                                    ) * 100
+                                  ).toFixed(1)
+                                  + "%"
+                                : "-"
+                        }
+                    </td>
+
+                    <td>
+                        ${event.event_time}
+                    </td>
+
+                </tr>
+
+            `
+            ).join("");
+
+
+        updateAlerts(events);
+
+    } catch (error) {
+
+        console.error(
+            "Event loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   UPDATE SECURITY ALERTS
+======================================================== */
+
+function updateAlerts(events) {
+
+    const alertList =
+        document.getElementById(
+            "alertList"
         );
 
 
-    breakdown.innerHTML = "";
+    if (!events.length) {
 
-
-    if (data.breakdown.length === 0) {
-
-        breakdown.innerHTML =
-            "<p style='color:#64748b'>No events recorded yet.</p>";
+        alertList.innerHTML = `
+            <div class="empty">
+                No alerts yet.
+            </div>
+        `;
 
         return;
 
     }
 
 
-    const maximum =
-        Math.max(
-            ...data.breakdown.map(
-                item => item.count
-            )
-        );
+    const recentEvents =
+        events.slice(0, 6);
 
 
-    data.breakdown.forEach(
-        item => {
+    alertList.innerHTML =
+        recentEvents.map(
+            event => `
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+            <div class="alert">
 
+                <strong>
+                    ${event.event_type}
+                </strong>
 
-            div.className =
-                "breakdown-item";
-
-
-            const percentage =
-                (
-                    item.count /
-                    maximum
-                ) * 100;
-
-
-            div.innerHTML = `
-
-                <div
-                    class="breakdown-header"
-                >
-
-                    <span
-                        class="breakdown-name"
-                    >
-                        ${item.event_type}
-                    </span>
-
-                    <span
-                        class="breakdown-count"
-                    >
-                        ${item.count}
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="bar-background"
-                >
-
-                    <div
-                        class="bar"
-                        style="
-                            width:
-                            ${percentage}%;
-                        "
-                    ></div>
-
-                </div>
-
-            `;
-
-
-            breakdown.appendChild(
-                div
-            );
-
-        }
-    );
-
-}
-
-
-// =========================================
-// EVENT HISTORY
-// =========================================
-
-async function loadEvents() {
-
-    const eventType =
-        document.getElementById(
-            "eventType"
-        ).value;
-
-
-    const objectName =
-        document.getElementById(
-            "objectName"
-        ).value;
-
-
-    const search =
-        document.getElementById(
-            "search"
-        ).value;
-
-
-    const params =
-        new URLSearchParams();
-
-
-    if (eventType) {
-
-        params.append(
-            "event_type",
-            eventType
-        );
-
-    }
-
-
-    if (objectName) {
-
-        params.append(
-            "object_name",
-            objectName
-        );
-
-    }
-
-
-    if (search) {
-
-        params.append(
-            "search",
-            search
-        );
-
-    }
-
-
-    const response =
-        await fetch(
-            "/api/events?" +
-            params.toString()
-        );
-
-
-    const events =
-        await response.json();
-
-
-    const table =
-        document.getElementById(
-            "eventTable"
-        );
-
-
-    table.innerHTML = "";
-
-
-    document.getElementById(
-        "eventCount"
-    ).textContent =
-        events.length;
-
-
-    events.forEach(
-        event => {
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${event.id}
-                </td>
-
-                <td>
-                    ${event.object_name}
-                </td>
-
-                <td>
-
-                    <span
-                        class="event-badge"
-                    >
-                        ${event.event_type}
-                    </span>
-
-                </td>
-
-                <td>
-                    ${
-                        Number(
-                            event.confidence
-                        ).toFixed(2)
-                    }
-                </td>
-
-                <td>
+                <div class="alert-time">
+                    Person ·
                     ${event.event_time}
-                </td>
+                </div>
 
-            `;
+            </div>
+
+        `
+        ).join("");
+
+}
 
 
-            table.appendChild(
-                row
+/* ========================================================
+   LOAD PERSON SESSIONS
+======================================================== */
+
+async function loadSessions() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/sessions"
             );
 
+
+        const sessions =
+            await response.json();
+
+
+        const table =
+            document.getElementById(
+                "sessionsTable"
+            );
+
+
+        if (!sessions.length) {
+
+            table.innerHTML = `
+                <tr>
+                    <td
+                        colspan="6"
+                        class="empty"
+                    >
+                        No sessions recorded.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
         }
-    );
+
+
+        table.innerHTML =
+            sessions.map(
+                session => {
+
+                    const isActive =
+                        session.active === true;
+
+
+                    return `
+
+                    <tr>
+
+                        <td>
+                            ${session.id}
+                        </td>
+
+                        <td>
+                            ${session.track_id}
+                        </td>
+
+                        <td>
+                            ${session.start_time}
+                        </td>
+
+                        <td>
+                            ${
+                                session.end_time
+                                    || "-"
+                            }
+                        </td>
+
+                        <td>
+                            ${formatDuration(
+                                session.duration_seconds
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="active-badge ${
+                                    isActive
+                                        ? "active"
+                                        : "completed"
+                                }"
+                            >
+
+                                ${
+                                    isActive
+                                        ? "ACTIVE"
+                                        : "COMPLETED"
+                                }
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    `;
+
+                }
+            ).join("");
+
+    } catch (error) {
+
+        console.error(
+            "Session loading error:",
+            error
+        );
+
+    }
 
 }
 
 
-// =========================================
-// CLEAR FILTERS
-// =========================================
-
-function clearFilters() {
-
-    document.getElementById(
-        "eventType"
-    ).value = "";
-
-
-    document.getElementById(
-        "objectName"
-    ).value = "";
-
-
-    document.getElementById(
-        "search"
-    ).value = "";
-
-
-    loadEvents();
-
-}
-
-
-// =========================================
-// SETTINGS
-// =========================================
+/* ========================================================
+   LOAD SETTINGS
+======================================================== */
 
 async function loadSettings() {
 
-    const response =
-        await fetch(
-            "/api/settings"
+    try {
+
+        const response =
+            await fetch(
+                "/api/settings"
+            );
+
+
+        const settings =
+            await response.json();
+
+
+        document.getElementById(
+            "personDetection"
+        ).checked =
+            settings.person_detection;
+
+
+        document.getElementById(
+            "multiplePeopleDetection"
+        ).checked =
+            settings.multiple_people_detection;
+
+
+        document.getElementById(
+            "confidenceThreshold"
+        ).value =
+            settings.confidence_threshold;
+
+    } catch (error) {
+
+        console.error(
+            "Settings error:",
+            error
         );
 
-
-    const settings =
-        await response.json();
-
-
-    document.getElementById(
-        "personDetection"
-    ).checked =
-        settings.person_detection;
-
-
-    document.getElementById(
-        "phoneDetection"
-    ).checked =
-        settings.phone_detection;
-
-
-    document.getElementById(
-        "laptopDetection"
-    ).checked =
-        settings.laptop_detection;
-
-
-    document.getElementById(
-        "multiplePeopleDetection"
-    ).checked =
-        settings.multiple_people_detection;
-
-
-    document.getElementById(
-        "confidenceThreshold"
-    ).value =
-        settings.confidence_threshold;
-
-
-    document.getElementById(
-        "confidenceValue"
-    ).textContent =
-        Number(
-            settings.confidence_threshold
-        ).toFixed(2);
+    }
 
 }
 
+
+/* ========================================================
+   SAVE SETTINGS
+======================================================== */
 
 async function saveSettings() {
 
@@ -1551,16 +1772,6 @@ async function saveSettings() {
         person_detection:
             document.getElementById(
                 "personDetection"
-            ).checked,
-
-        phone_detection:
-            document.getElementById(
-                "phoneDetection"
-            ).checked,
-
-        laptop_detection:
-            document.getElementById(
-                "laptopDetection"
             ).checked,
 
         multiple_people_detection:
@@ -1578,76 +1789,78 @@ async function saveSettings() {
     };
 
 
-    await fetch(
-        "/api/settings",
-        {
+    try {
 
-            method: "POST",
+        const response =
+            await fetch(
+                "/api/settings",
+                {
+                    method: "POST",
 
-            headers: {
-                "Content-Type":
-                    "application/json"
-            },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-            body:
-                JSON.stringify(
-                    settings
-                )
+                    body:
+                        JSON.stringify(
+                            settings
+                        )
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        const message =
+            document.getElementById(
+                "settingsMessage"
+            );
+
+
+        if (result.success) {
+
+            message.textContent =
+                "Settings saved.";
+
+        } else {
+
+            message.textContent =
+                "Could not save settings.";
 
         }
-    );
 
 
-    document.getElementById(
-        "settingsStatus"
-    ).textContent =
-        "Settings saved";
+        setTimeout(
+            () => {
+                message.textContent = "";
+            },
+            2500
+        );
 
+    } catch (error) {
 
-    setTimeout(
-        () => {
+        console.error(
+            "Settings save error:",
+            error
+        );
 
-            document.getElementById(
-                "settingsStatus"
-            ).textContent = "";
-
-        },
-        2000
-    );
+    }
 
 }
 
 
-// =========================================
-// CONFIDENCE SLIDER
-// =========================================
+/* ========================================================
+   CLEAR EVENTS
+======================================================== */
 
-document.getElementById(
-    "confidenceThreshold"
-).addEventListener(
-    "input",
-    function() {
-
-        document.getElementById(
-            "confidenceValue"
-        ).textContent =
-            Number(
-                this.value
-            ).toFixed(2);
-
-    }
-);
-
-
-// =========================================
-// CLEAR EVENT HISTORY
-// =========================================
-
-async function clearEventHistory() {
+async function clearEvents() {
 
     const confirmed =
         confirm(
-            "Are you sure you want to delete all event history?"
+            "Clear all CCTV event history?"
         );
 
 
@@ -1656,7 +1869,8 @@ async function clearEventHistory() {
     }
 
 
-    const response =
+    try {
+
         await fetch(
             "/api/events/clear",
             {
@@ -1665,30 +1879,105 @@ async function clearEventHistory() {
         );
 
 
-    const data =
-        await response.json();
-
-
-    if (data.success) {
-
-        alert(
-            data.deleted +
-            " events deleted."
-        );
-
-
         loadEvents();
-
         loadAnalytics();
+
+    } catch (error) {
+
+        console.error(
+            "Clear events error:",
+            error
+        );
 
     }
 
 }
 
 
-// =========================================
-// INITIAL LOAD
-// =========================================
+/* ========================================================
+   CLEAR SESSIONS
+======================================================== */
+
+async function clearSessions() {
+
+    const confirmed =
+        confirm(
+            "Clear all completed person sessions?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        await fetch(
+            "/api/sessions/clear",
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        loadSessions();
+        loadAnalytics();
+
+    } catch (error) {
+
+        console.error(
+            "Clear sessions error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   RESET EVENT FILTERS
+======================================================== */
+
+function resetFilters() {
+
+    document.getElementById(
+        "eventFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "eventSearch"
+    ).value = "";
+
+
+    loadEvents();
+
+}
+
+
+/* ========================================================
+   LIVE CLOCK
+======================================================== */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+
+    document.getElementById(
+        "clock"
+    ).textContent =
+        now.toLocaleString();
+
+}
+
+
+/* ========================================================
+   INITIAL LOAD
+======================================================== */
 
 loadCounts();
 
@@ -1696,32 +1985,48 @@ loadAnalytics();
 
 loadEvents();
 
+loadSessions();
+
 loadSettings();
 
+updateClock();
 
-// =========================================
-// AUTOMATIC UPDATES
-// =========================================
+
+/* ========================================================
+   AUTOMATIC REFRESH
+======================================================== */
 
 setInterval(
     loadCounts,
     1000
 );
 
+
 setInterval(
     loadAnalytics,
     3000
 );
+
 
 setInterval(
     loadEvents,
     3000
 );
 
-</script>
 
+setInterval(
+    loadSessions,
+    1000
+);
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+</script>
 
 </body>
 
 </html>
-```

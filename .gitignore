@@ -1,9 +1,8 @@
-```text
 # Python
 __pycache__/
 *.py[cod]
 
-# Virtual environment
+# Virtual environments
 venv/
 .venv/
 
@@ -15,10 +14,17 @@ venv/
 # IDE
 .vscode/
 
-# Python environment
+# Environment files
 .env
 
 # Temporary files
 *.tmp
 *.log
-```
+
+# AI model files
+*.pt
+*.onnx
+
+# OS files
+.DS_Store
+Thumbs.db

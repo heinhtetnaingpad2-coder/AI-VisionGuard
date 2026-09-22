@@ -1,7 +1,5 @@
-```text
 flask
 opencv-python
 ultralytics
 pandas
 matplotlib
-```
