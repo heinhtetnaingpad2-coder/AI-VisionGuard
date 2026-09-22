@@ -1,0 +1,7 @@
+{
+    "person_detection": true,
+    "phone_detection": true,
+    "laptop_detection": true,
+    "multiple_people_detection": true,
+    "confidence_threshold": 0.5
+}

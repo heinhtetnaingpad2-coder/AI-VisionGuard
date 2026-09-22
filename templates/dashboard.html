@@ -1,0 +1,1727 @@
+```html
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>AI VisionGuard</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b1120;
+            color: #f8fafc;
+        }
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        header {
+            background: #111827;
+            border-bottom: 1px solid #273244;
+            padding: 20px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .brand p {
+            margin: 5px 0 0;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 14px;
+
+            background: #10251b;
+            border: 1px solid #1f5135;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            color: #86efac;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            background: #22c55e;
+
+            border-radius: 50%;
+        }
+
+        /* =====================================
+           MAIN
+        ===================================== */
+
+        main {
+            max-width: 1500px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .section {
+            background: #111827;
+
+            border: 1px solid #273244;
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+            margin-bottom: 22px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .section-title span {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* =====================================
+           CAMERA
+        ===================================== */
+
+        .camera-wrapper {
+            background: #020617;
+
+            border-radius: 10px;
+
+            padding: 8px;
+
+            border: 1px solid #273244;
+        }
+
+        .camera {
+            width: 100%;
+
+            display: block;
+
+            border-radius: 7px;
+        }
+
+        /* =====================================
+           LIVE CARDS
+        ===================================== */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 15px;
+        }
+
+        .card {
+            background: #172033;
+
+            border: 1px solid #29364a;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+        .card-label {
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+        .card-number {
+            font-size: 34px;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+        .card-description {
+            color: #64748b;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+        }
+
+        /* =====================================
+           ANALYTICS
+        ===================================== */
+
+        .analytics-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 15px;
+        }
+
+        .analytics-card {
+            background: #172033;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            border: 1px solid #29364a;
+        }
+
+        .analytics-value {
+            font-size: 28px;
+
+            font-weight: bold;
+
+            margin-top: 7px;
+        }
+
+        /* =====================================
+           BREAKDOWN
+        ===================================== */
+
+        .breakdown-item {
+            margin-bottom: 18px;
+        }
+
+        .breakdown-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+        }
+
+        .breakdown-name {
+            color: #cbd5e1;
+        }
+
+        .breakdown-count {
+            color: #94a3b8;
+        }
+
+        .bar-background {
+            width: 100%;
+
+            height: 8px;
+
+            background: #1e293b;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+
+            background: #3b82f6;
+
+            border-radius: 10px;
+
+            transition: width 0.3s;
+        }
+
+        /* =====================================
+           SETTINGS
+        ===================================== */
+
+        .settings-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 12px;
+        }
+
+        .setting-box {
+            background: #172033;
+
+            border: 1px solid #29364a;
+
+            border-radius: 10px;
+
+            padding: 15px;
+        }
+
+        .setting-box label {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+        }
+
+        .confidence-section {
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #172033;
+
+            border-radius: 10px;
+
+            border: 1px solid #29364a;
+        }
+
+        .confidence-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+        }
+
+        /* =====================================
+           BUTTONS
+        ===================================== */
+
+        button {
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 10px 15px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            margin-top: 15px;
+        }
+
+        .primary {
+            background: #2563eb;
+
+            color: white;
+        }
+
+        .primary:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary {
+            background: #334155;
+
+            color: white;
+        }
+
+        .secondary:hover {
+            background: #475569;
+        }
+
+        .danger {
+            background: #991b1b;
+
+            color: white;
+        }
+
+        .danger:hover {
+            background: #b91c1c;
+        }
+
+        .success-message {
+            color: #4ade80;
+
+            margin-left: 10px;
+
+            font-size: 13px;
+        }
+
+        /* =====================================
+           FILTERS
+        ===================================== */
+
+        .filters {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        select,
+        input[type="text"] {
+
+            width: 100%;
+
+            padding: 11px;
+
+            background: #172033;
+
+            color: white;
+
+            border: 1px solid #334155;
+
+            border-radius: 7px;
+
+            outline: none;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+        }
+
+        /* =====================================
+           EVENT COUNT
+        ===================================== */
+
+        .event-info {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 10px;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+        /* =====================================
+           TABLE
+        ===================================== */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 700px;
+        }
+
+        th {
+            text-align: left;
+
+            padding: 12px;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            border-bottom:
+                1px solid #273244;
+        }
+
+        td {
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #1e293b;
+
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background: #172033;
+        }
+
+        .event-badge {
+            display: inline-block;
+
+            padding: 5px 8px;
+
+            border-radius: 5px;
+
+            background: #1e3a8a;
+
+            color: #bfdbfe;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        footer {
+            text-align: center;
+
+            color: #475569;
+
+            font-size: 12px;
+
+            padding: 20px;
+        }
+
+        /* =====================================
+           MOBILE
+        ===================================== */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 15px;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+    <div class="brand">
+
+        <h1>
+            AI VisionGuard
+        </h1>
+
+        <p>
+            Intelligent Computer Vision Monitoring System
+        </p>
+
+    </div>
+
+
+    <div class="status">
+
+        <div class="status-dot"></div>
+
+        AI SYSTEM ONLINE
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================
+     CAMERA
+========================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Live AI Camera
+        </h2>
+
+        <span>
+            YOLO Object Detection
+        </span>
+
+    </div>
+
+
+    <div class="camera-wrapper">
+
+        <img
+            class="camera"
+            src="/video_feed"
+        >
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     LIVE DETECTION
+========================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Live Detection
+        </h2>
+
+        <span>
+            Real-time
+        </span>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <div class="card-label">
+                PEOPLE
+            </div>
+
+            <div
+                class="card-number"
+                id="peopleCount"
+            >
+                0
+            </div>
+
+            <div class="card-description">
+                Currently detected
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-label">
+                LAPTOPS
+            </div>
+
+            <div
+                class="card-number"
+                id="laptopCount"
+            >
+                0
+            </div>
+
+            <div class="card-description">
+                Currently detected
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-label">
+                PHONES
+            </div>
+
+            <div
+                class="card-number"
+                id="phoneCount"
+            >
+                0
+            </div>
+
+            <div class="card-description">
+                Currently detected
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     ANALYTICS
+========================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Event Analytics
+        </h2>
+
+        <span>
+            Recorded events
+        </span>
+
+    </div>
+
+
+    <div class="analytics-grid">
+
+
+        <div class="analytics-card">
+
+            <div class="card-label">
+                TOTAL EVENTS
+            </div>
+
+            <div
+                class="analytics-value"
+                id="totalEvents"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <div class="card-label">
+                PEOPLE
+            </div>
+
+            <div
+                class="analytics-value"
+                id="peopleEvents"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <div class="card-label">
+                PHONES
+            </div>
+
+            <div
+                class="analytics-value"
+                id="phoneEvents"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <div class="card-label">
+                LAPTOPS
+            </div>
+
+            <div
+                class="analytics-value"
+                id="laptopEvents"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <div class="card-label">
+                MULTIPLE PEOPLE
+            </div>
+
+            <div
+                class="analytics-value"
+                id="multiplePeopleEvents"
+            >
+                0
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     EVENT BREAKDOWN
+========================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Event Breakdown
+        </h2>
+
+        <span>
+            Activity distribution
+        </span>
+
+    </div>
+
+
+    <div id="breakdown">
+
+        Loading...
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     SETTINGS
+========================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Detection Settings
+        </h2>
+
+        <span>
+            Configure AI rules
+        </span>
+
+    </div>
+
+
+    <div class="settings-grid">
+
+
+        <div class="setting-box">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="personDetection"
+                >
+
+                Person Detection
+
+            </label>
+
+        </div>
+
+
+        <div class="setting-box">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="phoneDetection"
+                >
+
+                Phone Detection
+
+            </label>
+
+        </div>
+
+
+        <div class="setting-box">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="laptopDetection"
+                >
+
+                Laptop Detection
+
+            </label>
+
+        </div>
+
+
+        <div class="setting-box">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="multiplePeopleDetection"
+                >
+
+                Multiple People Detection
+
+            </label>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="confidence-section">
+
+        <div class="confidence-top">
+
+            <strong>
+                AI Confidence Threshold
+            </strong>
+
+            <span id="confidenceValue">
+                0.50
+            </span>
+
+        </div>
+
+
+        <input
+            type="range"
+            id="confidenceThreshold"
+            min="0.10"
+            max="0.95"
+            step="0.05"
+            value="0.50"
+        >
+
+
+        <br>
+
+
+        <button
+            class="primary"
+            onclick="saveSettings()"
+        >
+            Save Settings
+        </button>
+
+
+        <span
+            id="settingsStatus"
+            class="success-message"
+        ></span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     EVENT HISTORY
+========================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Event History
+        </h2>
+
+        <span>
+            Latest 50 events
+        </span>
+
+    </div>
+
+
+    <div class="filters">
+
+
+        <select id="eventType">
+
+            <option value="">
+                All Event Types
+            </option>
+
+            <option value="PERSON_ENTERED">
+                PERSON_ENTERED
+            </option>
+
+            <option value="PHONE_DETECTED">
+                PHONE_DETECTED
+            </option>
+
+            <option value="LAPTOP_DETECTED">
+                LAPTOP_DETECTED
+            </option>
+
+            <option value="MULTIPLE_PEOPLE">
+                MULTIPLE_PEOPLE
+            </option>
+
+        </select>
+
+
+        <select id="objectName">
+
+            <option value="">
+                All Objects
+            </option>
+
+            <option value="person">
+                person
+            </option>
+
+            <option value="cell phone">
+                cell phone
+            </option>
+
+            <option value="laptop">
+                laptop
+            </option>
+
+        </select>
+
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search events..."
+        >
+
+
+    </div>
+
+
+    <button
+        class="primary"
+        onclick="loadEvents()"
+    >
+        Search
+    </button>
+
+
+    <button
+        class="secondary"
+        onclick="clearFilters()"
+    >
+        Clear Filters
+    </button>
+
+
+    <div class="event-info">
+
+        <span>
+
+            Showing
+            <strong id="eventCount">
+                0
+            </strong>
+            events
+
+        </span>
+
+    </div>
+
+
+    <button
+        class="danger"
+        onclick="clearEventHistory()"
+    >
+        Clear Event History
+    </button>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Object
+                    </th>
+
+                    <th>
+                        Event
+                    </th>
+
+                    <th>
+                        Confidence
+                    </th>
+
+                    <th>
+                        Time
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="eventTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+    AI VisionGuard
+    ·
+    Computer Vision Monitoring Prototype
+
+</footer>
+
+
+<script>
+
+
+// =========================================
+// LIVE COUNTS
+// =========================================
+
+async function loadCounts() {
+
+    const response =
+        await fetch("/api/counts");
+
+    const data =
+        await response.json();
+
+
+    document.getElementById(
+        "peopleCount"
+    ).textContent =
+        data.person;
+
+
+    document.getElementById(
+        "laptopCount"
+    ).textContent =
+        data.laptop;
+
+
+    document.getElementById(
+        "phoneCount"
+    ).textContent =
+        data["cell phone"];
+
+}
+
+
+// =========================================
+// ANALYTICS
+// =========================================
+
+async function loadAnalytics() {
+
+    const response =
+        await fetch("/api/analytics");
+
+    const data =
+        await response.json();
+
+
+    document.getElementById(
+        "totalEvents"
+    ).textContent =
+        data.total_events;
+
+
+    document.getElementById(
+        "peopleEvents"
+    ).textContent =
+        data.people_events;
+
+
+    document.getElementById(
+        "phoneEvents"
+    ).textContent =
+        data.phone_events;
+
+
+    document.getElementById(
+        "laptopEvents"
+    ).textContent =
+        data.laptop_events;
+
+
+    document.getElementById(
+        "multiplePeopleEvents"
+    ).textContent =
+        data.multiple_people_events;
+
+
+    const breakdown =
+        document.getElementById(
+            "breakdown"
+        );
+
+
+    breakdown.innerHTML = "";
+
+
+    if (data.breakdown.length === 0) {
+
+        breakdown.innerHTML =
+            "<p style='color:#64748b'>No events recorded yet.</p>";
+
+        return;
+
+    }
+
+
+    const maximum =
+        Math.max(
+            ...data.breakdown.map(
+                item => item.count
+            )
+        );
+
+
+    data.breakdown.forEach(
+        item => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "breakdown-item";
+
+
+            const percentage =
+                (
+                    item.count /
+                    maximum
+                ) * 100;
+
+
+            div.innerHTML = `
+
+                <div
+                    class="breakdown-header"
+                >
+
+                    <span
+                        class="breakdown-name"
+                    >
+                        ${item.event_type}
+                    </span>
+
+                    <span
+                        class="breakdown-count"
+                    >
+                        ${item.count}
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="bar-background"
+                >
+
+                    <div
+                        class="bar"
+                        style="
+                            width:
+                            ${percentage}%;
+                        "
+                    ></div>
+
+                </div>
+
+            `;
+
+
+            breakdown.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================
+// EVENT HISTORY
+// =========================================
+
+async function loadEvents() {
+
+    const eventType =
+        document.getElementById(
+            "eventType"
+        ).value;
+
+
+    const objectName =
+        document.getElementById(
+            "objectName"
+        ).value;
+
+
+    const search =
+        document.getElementById(
+            "search"
+        ).value;
+
+
+    const params =
+        new URLSearchParams();
+
+
+    if (eventType) {
+
+        params.append(
+            "event_type",
+            eventType
+        );
+
+    }
+
+
+    if (objectName) {
+
+        params.append(
+            "object_name",
+            objectName
+        );
+
+    }
+
+
+    if (search) {
+
+        params.append(
+            "search",
+            search
+        );
+
+    }
+
+
+    const response =
+        await fetch(
+            "/api/events?" +
+            params.toString()
+        );
+
+
+    const events =
+        await response.json();
+
+
+    const table =
+        document.getElementById(
+            "eventTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    document.getElementById(
+        "eventCount"
+    ).textContent =
+        events.length;
+
+
+    events.forEach(
+        event => {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${event.id}
+                </td>
+
+                <td>
+                    ${event.object_name}
+                </td>
+
+                <td>
+
+                    <span
+                        class="event-badge"
+                    >
+                        ${event.event_type}
+                    </span>
+
+                </td>
+
+                <td>
+                    ${
+                        Number(
+                            event.confidence
+                        ).toFixed(2)
+                    }
+                </td>
+
+                <td>
+                    ${event.event_time}
+                </td>
+
+            `;
+
+
+            table.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================
+// CLEAR FILTERS
+// =========================================
+
+function clearFilters() {
+
+    document.getElementById(
+        "eventType"
+    ).value = "";
+
+
+    document.getElementById(
+        "objectName"
+    ).value = "";
+
+
+    document.getElementById(
+        "search"
+    ).value = "";
+
+
+    loadEvents();
+
+}
+
+
+// =========================================
+// SETTINGS
+// =========================================
+
+async function loadSettings() {
+
+    const response =
+        await fetch(
+            "/api/settings"
+        );
+
+
+    const settings =
+        await response.json();
+
+
+    document.getElementById(
+        "personDetection"
+    ).checked =
+        settings.person_detection;
+
+
+    document.getElementById(
+        "phoneDetection"
+    ).checked =
+        settings.phone_detection;
+
+
+    document.getElementById(
+        "laptopDetection"
+    ).checked =
+        settings.laptop_detection;
+
+
+    document.getElementById(
+        "multiplePeopleDetection"
+    ).checked =
+        settings.multiple_people_detection;
+
+
+    document.getElementById(
+        "confidenceThreshold"
+    ).value =
+        settings.confidence_threshold;
+
+
+    document.getElementById(
+        "confidenceValue"
+    ).textContent =
+        Number(
+            settings.confidence_threshold
+        ).toFixed(2);
+
+}
+
+
+async function saveSettings() {
+
+    const settings = {
+
+        person_detection:
+            document.getElementById(
+                "personDetection"
+            ).checked,
+
+        phone_detection:
+            document.getElementById(
+                "phoneDetection"
+            ).checked,
+
+        laptop_detection:
+            document.getElementById(
+                "laptopDetection"
+            ).checked,
+
+        multiple_people_detection:
+            document.getElementById(
+                "multiplePeopleDetection"
+            ).checked,
+
+        confidence_threshold:
+            Number(
+                document.getElementById(
+                    "confidenceThreshold"
+                ).value
+            )
+
+    };
+
+
+    await fetch(
+        "/api/settings",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body:
+                JSON.stringify(
+                    settings
+                )
+
+        }
+    );
+
+
+    document.getElementById(
+        "settingsStatus"
+    ).textContent =
+        "Settings saved";
+
+
+    setTimeout(
+        () => {
+
+            document.getElementById(
+                "settingsStatus"
+            ).textContent = "";
+
+        },
+        2000
+    );
+
+}
+
+
+// =========================================
+// CONFIDENCE SLIDER
+// =========================================
+
+document.getElementById(
+    "confidenceThreshold"
+).addEventListener(
+    "input",
+    function() {
+
+        document.getElementById(
+            "confidenceValue"
+        ).textContent =
+            Number(
+                this.value
+            ).toFixed(2);
+
+    }
+);
+
+
+// =========================================
+// CLEAR EVENT HISTORY
+// =========================================
+
+async function clearEventHistory() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete all event history?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const response =
+        await fetch(
+            "/api/events/clear",
+            {
+                method: "DELETE"
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (data.success) {
+
+        alert(
+            data.deleted +
+            " events deleted."
+        );
+
+
+        loadEvents();
+
+        loadAnalytics();
+
+    }
+
+}
+
+
+// =========================================
+// INITIAL LOAD
+// =========================================
+
+loadCounts();
+
+loadAnalytics();
+
+loadEvents();
+
+loadSettings();
+
+
+// =========================================
+// AUTOMATIC UPDATES
+// =========================================
+
+setInterval(
+    loadCounts,
+    1000
+);
+
+setInterval(
+    loadAnalytics,
+    3000
+);
+
+setInterval(
+    loadEvents,
+    3000
+);
+
+</script>
+
+
+</body>
+
+</html>
+```

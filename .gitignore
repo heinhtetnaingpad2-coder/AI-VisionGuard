@@ -1,0 +1,24 @@
+```text
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.venv/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+
+# Python environment
+.env
+
+# Temporary files
+*.tmp
+*.log
+```
